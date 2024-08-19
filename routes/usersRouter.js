@@ -1,37 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const userModel=require("../models/user-model");
-const bcrypt = require("bcrypt");
-const jwt=require("jsonwebtoken");
+const isloggedin=require("../middlewares/isLoggedIn")
+
+const {registerUser,loginUser,logout}=require('../controllers/authController')
 
 router.get("/", (req, res) => {
-    res.send("Its working ")
+    res.send("It's working ")
 })
-router.post("/register", (req, res) => {
-    try {
-        let { email, password, fullname } = req.body;
-
-        bcrypt.genSalt(10,(err,salt)=>{
-            bcrypt.hash(password, salt,async (err,hash)=>{
-                if(err) return res.send(err.message);
-                else {
-                    let user =await userModel.create({
-                        email,
-                        password,
-                        fullname
-                    });
-                  let token=  jwt.sign({email,id:user._id},"Secret");
-                  res.cookie("token",token);
-                  res.send("User created successfully");
-                }
-            })
-        })
-
-        
-    } catch (err) { 
-        res.send(err.message);
-        
-    }
-})
+router.post("/register",registerUser );
+router.post("/login",loginUser );
+router.get("/logout",logout );
 
 module.exports = router;

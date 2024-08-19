@@ -8,11 +8,11 @@ const userSchema=mongoose.Schema({
     },
     email:String,
     password:String,
-    cart:{
-        type:Array,
-        default:[]
-    },
-    iadmin:Boolean,
+    cart:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"product"
+    }],
+    // iadmin:Boolean,
     orders:{
         type:Array,
         default:[]
