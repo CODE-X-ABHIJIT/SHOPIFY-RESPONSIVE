@@ -11,7 +11,7 @@ const expressSession=require("express-session");
 const flash=require("connect-flash");
 require("dotenv").config();
 const BASE_URL=process.env.BASE_URL
-
+const PORT_URL=process.env.PORT||3000
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`server running at ${BASE_URL}/`);
 
 })
