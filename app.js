@@ -10,7 +10,7 @@ const indexRouter=require("./routes/index");
 const expressSession=require("express-session");
 const flash=require("connect-flash");
 require("dotenv").config();
-
+const BASE_URL=process.env.BASE_URL
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -36,6 +36,6 @@ app.use((req, res, next) => {
 });
 
 app.listen(3000, () => {
-    console.log("server running at http://localhost:3000/");
+    console.log(`server running at ${BASE_URL}/`);
 
 })
