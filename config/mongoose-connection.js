@@ -3,7 +3,7 @@ const config = require('config');
 const dbgr = require('debug')("development:mongoose");
 
 // Connection string should be pulled from your configuration
-const connectionString = `${config.get("MONGODB_URI")}/scatch`;
+const connectionString = `${config.get("MONGODB_URI")}/shopify`;
 
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
