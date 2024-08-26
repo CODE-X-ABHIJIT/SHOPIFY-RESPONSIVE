@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Owner Registration and Login</title>
+</head>
+
+<body>
+    <%- include('./partials/header') %>
+
+    <!-- Flash Messages Section -->
+    <% if (messages && (messages.error.length > 0 || messages.success.length > 0)) { %>
+        <div class="fixed top-5 left-1/2 transform -translate-x-1/2 w-11/12 max-w-md">
+            <% if (messages.error.length > 0) { %>
+                <% messages.error.forEach(function(msg) { %>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline"><%= msg %></span>
+                    </div>
+                <% }); %>
+            <% } %>
+            <% if (messages.success.length > 0) { %>
+                <% messages.success.forEach(function(msg) { %>
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline"><%= msg %></span>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    <% } %>
+
+    <div class="w-full h-screen flex flex-col md:flex-row px-5 md:px-20">
+        <!-- Owner Registration Section -->
+        <div class="w-full md:w-1/2 flex items-center justify-center h-screen md:h-auto p-5 md:p-10">
+            <div class="w-full max-w-md">
+                <h4 class="text-2xl capitalize mb-5">Owner Registration</h4>
+                <form action="/owners/register" method="post">
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="text" placeholder="Full Name" name="fullname" required>
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="email" placeholder="Email" name="email" required>
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="password" placeholder="Password" name="password" required>
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="text" placeholder="GSTIN" name="gstin " required>
+                    <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit" value="Register">
+                </form>
+            </div>
+        </div>
+
+        <!-- Separator for clarity on medium screens and up -->
+        <div class="hidden md:block mt-[320px]">OR</div>
+
+        <!-- Owner Login Section -->
+        <div class="w-full md:w-1/2 flex items-center justify-center h-screen md:h-auto p-5 md:p-10">
+            <div class="w-full max-w-md">
+                <h4 class="text-2xl capitalize mb-5">Owner Login</h4>
+                <form action="/owners/login" method="post">
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="email" placeholder="Email" name="email" required>
+                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
+                        type="password" placeholder="Password" name="password" required>
+                    <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit" value="Login">
+                </form>
+                <!-- Forgot Password Link -->
+                <a href="/owners/forgot-password" class="block mt-4 text-blue-500 hover:underline">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 const userModel = require("../models/user-model");
+const ownerModel = require("../models/owners-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateToken")
@@ -8,33 +9,32 @@ module.exports.registerUser = async (req, res) => {
     try {
         let { email, password, fullname } = req.body;
 
-        let user = await userModel.findOne({ email: email })
+        let user = await userModel.findOne({ email });
         if (user) {
             req.flash("error", "You already have an account, please login.");
-            return res.redirect("/")
+            return res.redirect("/");
         }
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, async (err, hash) => {
-                if (err) return res.send(err.message);
-                else {
-                    let user = await userModel.create({
-                        email,
-                        password: hash,
-                        fullname
-                    });
 
+        // Generate salt and hash password
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
 
-                    let token = generateToken(user);
-                    res.cookie("token", token);
-                    req.flash("User created successfully");
-                }
-            })
-        })
+        // Create the new user
+        user = await userModel.create({
+            email,
+            password: hash,
+            fullname
+        });
 
+        // Generate token and set cookie
+        let token = generateToken(user);
+        res.cookie("token", token);
+        req.flash("success", "User created successfully.");
 
+        // Redirect after registration is complete
+        res.redirect("/shop");
     } catch (err) {
         res.send(err.message);
-
     }
 }
 
@@ -61,7 +61,9 @@ module.exports.loginUser = async (req, res) => {
     })
 }
 
+
 module.exports.logout=(req, res) => {
-    res.cookie("token","");
+    req.session.ownerId = null;
+    res.cookie("token","",{ expires: new Date(0) });
     res.redirect("/");
 }

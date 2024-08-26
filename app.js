@@ -20,8 +20,8 @@ app.use(cookieParser());
 app.use(
     expressSession({
         resave:false,
-        saveUninitialized:false,
-        secret:process.env.EXPRESS_SESSION_SECRET,
+        saveUninitialized:true,
+        secret:process.env.JWT_KEY,
     })
 );
 app.use(flash());
@@ -30,7 +30,10 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/owners", ownersRouter);
 app.use("/products", productsRouter);
-
+app.use((req, res, next) => {
+    res.locals.messages = req.flash();
+    next();
+});
 
 app.listen(3000, () => {
     console.log("server running at http://localhost:3000/");

@@ -18,3 +18,28 @@ pink
 text 816264
 panel E3C4C6
 bgcolor F4E0E1
+
+darkgreen
+text: #2E4B2D
+panel: #A3BFA8
+bgcolor: #D9E6D3
+
+lightyellow
+text: #8F7A34
+panel: #F0E7B3
+bgcolor: #FBF7DD
+
+softorange
+text: #A45C2E
+panel: #F2B08C
+bgcolor: #FCE0CF
+
+lavender
+text: #6E618D
+panel: #CFC7E5
+bgcolor: #EFEAF7
+
+teal
+text: #3B6E68
+panel: #A3CFCC
+bgcolor: #D7EBEA

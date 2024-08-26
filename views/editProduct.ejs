@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="font-sans bg-gray-100">
+
+    <%- include('./partials/header') %>
+
+    <% if(success.length > 0){ %>
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-blue-500 text-white p-3 rounded-md shadow-lg">
+            <span><%= success %></span>
+        </div>
+    <% } %>
+
+    <div class="min-h-screen flex flex-col">
+        <div class="container mx-auto px-4 py-10 flex flex-col md:flex-row">
+            <div class="w-full md:w-1/4 flex flex-col items-start mb-6 md:mb-0">
+                <a class="text-blue-600 hover:underline" href="/owners/dashboard">Return To Dashboard</a>
+            </div>
+            <main class="w-full md:w-3/4 bg-white p-6 md:p-8 shadow-lg rounded-md">
+                <h2 class="text-xl font-bold mb-4">Edit Product</h2>
+                <form autocomplete="off" action="/owners/admin/edit/<%= product._id %>" method="post" enctype="multipart/form-data">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-2">Product Details</h3>
+                        <div class="mb-4">
+                            <label class="block mb-2 font-medium">Product Image</label>
+                            <input name="image" type="file" class="border py-2 px-4 rounded w-full">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input name="name" type="text" placeholder="Product Name" value="<%= product.name %>" class="border p-2 rounded w-full">
+                            <input name="price" type="text" placeholder="Product Price" value="<%= product.price %>" class="border p-2 rounded w-full">
+                            <input name="discount" type="text" placeholder="Discount Price" value="<%= product.discount %>" class="border p-2 rounded w-full">
+                            <input name="quantity" type="number" placeholder="Quantity" value="<%= product.quantity %>" class="border p-2 rounded w-full"> <!-- Added quantity field -->
+                        </div>
+                    </div>
+                
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-2">Product Description</h3>
+                        <div class="mb-4">
+                            <label class="block mb-2 font-medium">Description</label>
+                            <textarea name="description" placeholder="Enter product description" class="border p-2 rounded w-full h-32"><%= product.description %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input name="bgcolor" type="text" placeholder="Background Color" value="<%= product.bgcolor %>" class="border p-2 rounded w-full">
+                            <input name="panelcolor" type="text" placeholder="Panel Color" value="<%= product.panelcolor %>" class="border p-2 rounded w-full">
+                            <input name="textcolor" type="text" placeholder="Text Color" value="<%= product.textcolor %>" class="border p-2 rounded w-full">
+                        </div>
+                    </div>
+                    
+                    <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white cursor-pointer hover:bg-blue-600" type="submit" value="Update Product">
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+
+</body>
+
+</html>

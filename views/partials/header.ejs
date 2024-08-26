@@ -3,23 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/images/menutize.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="font-['helvetica_now_display']">
-    <nav class="w-full flex justify-between p-5 py-3">
-        <h3 class="text-xl">Scatch</h3>
-        <% var loggedin=typeof loggedin !=="undefined" ? loggedin : true %>
-            <%if(loggedin){%>
-                <div class="flex gap-5">
-                    <a href="/shop">Shop</a>
-                    <a href="/cart">Cart</a>
-                    <a href="/account">My Account</a>
-                    <a class="text-red-600" href="/users/logout">Logout</a>
-                </div>
-                <% } %>
+    <nav class="w-full flex justify-between p-5 py-3 relative">
+        <a href="/shop">
+            <h3 class="text-xl pt-3">Shopify</h3>
+        </a>
 
+        <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+        <% if (loggedin) { %>
+        <div class="hidden md:flex gap-5 pt-4">
+            <a href="/owners/dashboard">Admin</a>
+            <a href="/shop">Shop</a>
+            <a href="users/cart">Cart</a>
+            <a href="/account">My Account</a>
+            <a class="text-red-600" href="/users/logout" href="/owners/logout">Logout</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="flex items-center md:hidden">
+            <button id="menu-btn" class="text-2xl z-10 relative">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="menu" class="flex flex-col gap-5 pt-4 hidden md:hidden absolute top-full right-0 bg-white p-5 shadow-md z-10">
+            <a href="/owners/dashboard">Admin</a>
+            <a href="/shop">Shop</a>
+            <a href="users/cart">Cart</a>
+            <a href="/account">My Account</a>
+            <a class="text-red-600" href="/users/logout" href="/owners/logout">Logout</a>
+        </div>
+        <% } %>
     </nav>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

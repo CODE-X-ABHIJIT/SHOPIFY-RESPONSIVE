@@ -1,0 +1,66 @@
+<%- include('./partials/header') %>
+
+<div class="container mx-auto p-6">
+    <!-- Display Flash Messages -->
+    <% if (messages.success && messages.success.length > 0) { %>
+        <div class="alert alert-success mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <%= messages.success[0] %>
+        </div>
+    <% } %>
+    <% if (messages.error && messages.error.length > 0) { %>
+        <div class="alert alert-danger mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <%= messages.error[0] %>
+        </div>
+    <% } %>
+
+    <h1 class="text-2xl font-bold mb-4">Account Details</h1>
+
+    <!-- Display User Details -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">My Profile</h2>
+        <div class="space-y-4">
+            <div>
+                <strong class="text-lg">Full Name:</strong>
+                <p class="text-gray-700"><%= user.fullname %></p>
+            </div>
+            <div>
+                <strong class="text-lg">Email:</strong>
+                <p class="text-gray-700"><%= user.email %></p>
+            </div>
+            <div>
+                <strong class="text-lg">Contact Number:</strong>
+                <p class="text-gray-700"><%= user.contact || 'Not provided' %></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update User Details Form -->
+    <h2 class="text-xl font-semibold mb-4">Update Your Details</h2>
+    <form action="/account" method="POST" class="space-y-4">
+        <div class="form-group">
+            <label for="fullname" class="block text-lg font-medium">Full Name</label>
+            <input type="text" id="fullname" name="fullname" value="<%= user.fullname %>" required
+                class="mt-1 p-2 border border-gray-300 rounded w-full">
+        </div>
+        <div class="form-group">
+            <label for="contact" class="block text-lg font-medium">Contact Number</label>
+            <input type="text" id="contact" name="contact" value="<%= user.contact %>" required
+                class="mt-1 p-2 border border-gray-300 rounded w-full">
+        </div>
+        <div class="form-group">
+            <label for="oldPassword" class="block text-lg font-medium">Old Password</label>
+            <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password"
+                class="mt-1 p-2 border border-gray-300 rounded w-full">
+        </div>
+        <div class="form-group">
+            <label for="newPassword" class="block text-lg font-medium">New Password</label>
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter a new password"
+                class="mt-1 p-2 border border-gray-300 rounded w-full">
+        </div>
+        <button type="submit" class="btn bg-yellow-500 text-white hover:bg-yellow-600 px-4 py-2 rounded">
+            Update
+        </button>
+    </form>
+</div>
+
+<%- include('./partials/footer') %>
