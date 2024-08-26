@@ -1,6 +1,5 @@
 const mongoose=require('mongoose')
-//const  MONGODB_URI=process.env.MONGODB_URI
-//  mongoose.connect("MONGODB_URI/scatch")
+
 
 const ownerSchema=mongoose.Schema({
     fullname:{
