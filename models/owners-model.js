@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
-
-mongoose.connect("mongodb://127.0.0.1:27017/scatch")
+//const  MONGODB_URI=process.env.MONGODB_URI
+//  mongoose.connect("MONGODB_URI/scatch")
 
 const ownerSchema=mongoose.Schema({
     fullname:{

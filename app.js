@@ -10,9 +10,9 @@ const indexRouter=require("./routes/index");
 const expressSession=require("express-session");
 const flash=require("connect-flash");
 require("dotenv").config();
-const BASE_URL=process.env.BASE_URL
-const PORT_URL=process.env.PORT||3000
-app.set("view engine", "ejs");
+
+
+app.set("view engine", "ejs");~
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"public")));
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.listen(PORT, () => {
-    console.log(`server running at ${BASE_URL}/`);
+app.listen(3000, () => {
+    console.log("server running at http://localhost:3000/");
 
 })

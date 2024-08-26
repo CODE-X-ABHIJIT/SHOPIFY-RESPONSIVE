@@ -1,15 +1,15 @@
-const mongoose=require('mongoose');
-const config=require('config');
-const dbgr=require('debug')("development:mongoose");
+const mongoose = require('mongoose');
+const config = require('config');
+const dbgr = require('debug')("development:mongoose");
 
-mongoose.connect(`${config.get("MONGODB_URI")}/scatch`)
-.then(function(){
-    dbgr("connected");
-    
-})
-.catch(function(err){
-    dbgr(err);
-    
-})
+// Connection string should be pulled from your configuration
+const connectionString = `${config.get("MONGODB_URI")}/scatch`;
 
-module.exports=mongoose.connection;
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => dbgr("Connected to MongoDB"))
+.catch((err) => dbgr("Error connecting to MongoDB:", err));
+
+module.exports = mongoose.connection;
